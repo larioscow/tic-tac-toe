@@ -1,6 +1,12 @@
 import { Button } from './Button';
 
-export const Board = ({ size = 3, squares, setSquares, isXNext }) => {
+export const Board = ({
+	size = 3,
+	squares,
+	setSquares,
+	isXNext,
+	calculateWinner,
+}) => {
 	const row = Array(size).fill(Array(size).fill(null));
 	let position = 0;
 
@@ -8,16 +14,18 @@ export const Board = ({ size = 3, squares, setSquares, isXNext }) => {
 
 	const handleClick = i => {
 		const nextSquares = [...squares];
-		xIsNext ? (nextSquares[i] = 'X') : (nextSquares[i] = 'O');
-		setXIsNext(!xIsNext);
-		setSquares(nextSquares);
+		if (!nextSquares[i] && !calculateWinner(nextSquares)) {
+			xIsNext ? (nextSquares[i] = 'X') : (nextSquares[i] = 'O');
+			setXIsNext(!xIsNext);
+			setSquares(nextSquares);
+		}
 	};
 
 	return (
-		<div className='board flex gap-1 flex-col'>
+		<div className='board flex gap-1 flex-col w-fit m-auto'>
 			{row.map((row, i) => {
 				return (
-					<div className='board-row flex gap-1' key={i}>
+					<div className='board-row flex gap-1 w-fit' key={i}>
 						{row.map((box, index) => {
 							index = position;
 							position++;
