@@ -73,10 +73,6 @@ export default function App() {
 
 	return (
 		<>
-			{play !== 'end' ? (
-				<LoadPage onPlay={playButton} play={play}></LoadPage>
-			) : null}
-
 			{/* <div className='lines w-10'>
 				<div className='vline bg-black w-74 h-2 m-1'></div>
 				<div className='vline bg-black w-74 h-2 m-1'></div>
@@ -84,35 +80,39 @@ export default function App() {
 				<div className='hline bg-black w-74 h-2 m-1'></div>
 			</div> */}
 
-			<div
-				className={`${play ? 'grid' : 'hidden'} grid-rows-2 display h-screen`}
-			>
-				<span
-					className={`block absolute top-10 w-screen text-5xl text-center font-bold ${
-						xIsNext ? 'text-red-500' : 'text-emerald-500'
-					}`}
+			{play !== 'end' ? (
+				<LoadPage onPlay={playButton} play={play}></LoadPage>
+			) : (
+				<div
+					className={`${play ? 'grid' : 'hidden'} grid-rows-2 display h-screen`}
 				>
-					{xIsNext ? 'X' : 'O'}
-				</span>
-
-				<Board
-					size={3}
-					squares={currentSquares}
-					setSquares={setSquares}
-					isXNext={[xIsNext, setXIsNext]}
-					calculateWinner={calculateWinner}
-					onPlay={handlePlay}
-				></Board>
-
-				{calculateWinner(squares) ? (
-					<span className='block text-center'>
-						{calculateWinner(squares)
-							? 'Winner: ' + calculateWinner(squares)
-							: 'Winner: ' + calculateWinner(squares)}
+					<span
+						className={`block absolute top-10 w-screen text-5xl text-center font-bold ${
+							xIsNext ? 'text-red-500' : 'text-emerald-500'
+						}`}
+					>
+						{xIsNext ? 'X' : 'O'}
 					</span>
-				) : null}
-				{/* <ol>{moves}</ol> */}
-			</div>
+
+					<Board
+						size={3}
+						squares={currentSquares}
+						setSquares={setSquares}
+						isXNext={[xIsNext, setXIsNext]}
+						calculateWinner={calculateWinner}
+						onPlay={handlePlay}
+					></Board>
+
+					{calculateWinner(squares) ? (
+						<span className='block text-center'>
+							{calculateWinner(squares)
+								? 'Winner: ' + calculateWinner(squares)
+								: 'Winner: ' + calculateWinner(squares)}
+						</span>
+					) : null}
+					{/* <ol>{moves}</ol> */}
+				</div>
+			)}
 		</>
 	);
 }
