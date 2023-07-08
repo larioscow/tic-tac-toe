@@ -1,0 +1,19 @@
+.board {
+	min-width: 240px;
+	max-width: 300px;
+	width: 60%;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.board-row {
+	width: 100%;
+	height: 30%;
+}
+
+@media (min-width: 520px) {
+	.board {
+		max-width: 400px;
+	}
+}

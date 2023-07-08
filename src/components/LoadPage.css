@@ -1,0 +1,40 @@
+@keyframes slideToBottom {
+	0% {
+		transform: translateY(0%) rotate(3deg);
+	}
+	40% {
+		opacity: 100%;
+	}
+	99% {
+		display: initial;
+	}
+	100% {
+		transform: translateY(50vh) rotate(35deg);
+		opacity: 0%;
+		display: none;
+	}
+}
+@keyframes slideToTop {
+	0% {
+		transform: translateY(0%);
+	}
+	40% {
+		opacity: 100%;
+	}
+	99% {
+		display: initial;
+	}
+	100% {
+		transform: translateY(-60vh) rotate(-20deg);
+		opacity: 0%;
+		display: none;
+	}
+}
+.play {
+	animation: slideToBottom 0.5s ease-in-out;
+	animation-fill-mode: forwards;
+}
+.playText {
+	animation: slideToTop 0.5s ease-in-out;
+	animation-fill-mode: forwards;
+}

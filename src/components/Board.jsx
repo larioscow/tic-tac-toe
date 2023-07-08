@@ -1,4 +1,5 @@
 import { Button } from './Button';
+import './Board.css';
 
 export const Board = ({
 	size = 3,
@@ -6,6 +7,7 @@ export const Board = ({
 	setSquares,
 	isXNext,
 	calculateWinner,
+	onPlay,
 }) => {
 	const row = Array(size).fill(Array(size).fill(null));
 	let position = 0;
@@ -18,29 +20,32 @@ export const Board = ({
 			xIsNext ? (nextSquares[i] = 'X') : (nextSquares[i] = 'O');
 			setXIsNext(!xIsNext);
 			setSquares(nextSquares);
+			onPlay(nextSquares);
 		}
 	};
 
 	return (
-		<div className='board flex gap-1 flex-col w-fit m-auto'>
-			{row.map((row, i) => {
-				return (
-					<div className='board-row flex gap-1 w-fit' key={i}>
-						{row.map((box, index) => {
-							index = position;
-							position++;
-							return (
-								<Button
-									key={index}
-									value={squares[index]}
-									index={index}
-									handleClick={handleClick}
-								></Button>
-							);
-						})}
-					</div>
-				);
-			})}
-		</div>
+		<>
+			<div className='board flex gap-3 flex-col mx-auto aspect-square justify-center'>
+				{row.map((row, i) => {
+					return (
+						<div className='board-row flex gap-3' key={i}>
+							{row.map((box, index) => {
+								index = position;
+								position++;
+								return (
+									<Button
+										key={index}
+										value={squares[index]}
+										index={index}
+										handleClick={handleClick}
+									></Button>
+								);
+							})}
+						</div>
+					);
+				})}
+			</div>
+		</>
 	);
 };
