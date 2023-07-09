@@ -4,7 +4,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 2rem;
-	border: 1px solid black;
+	border: 1px solid;
 	border-radius: 100%;
 	padding: 20px;
 	transition: all 100ms;

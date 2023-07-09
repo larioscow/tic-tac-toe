@@ -132,7 +132,9 @@ export default function App() {
 								<WinCeleb></WinCeleb>
 							</div>
 							<div
-								className={`refresh ${refresh ? 'rotate' : 'refresh'}`}
+								className={`refresh ${
+									refresh ? 'rotate' : 'refresh'
+								} border-blue-600`}
 								onClick={reset}
 							>
 								<AiOutlineReload></AiOutlineReload>
