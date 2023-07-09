@@ -46,23 +46,23 @@ export default function App() {
 		setCurrentMove(nextHistory.length - 1);
 		setXIsNext(!xIsNext);
 	};
-	function jumpTo(nextMove) {
-		setCurrentMove(nextMove);
-		setXIsNext(nextMove % 2 === 0);
-	}
-	const moves = history.map((squares, move) => {
-		let description;
-		if (move > 0) {
-			description = 'Ir al movimiento #' + move;
-		} else {
-			description = 'Ir al inicio del juego';
-		}
-		return (
-			<li key={move}>
-				<button onClick={() => jumpTo(move)}>{description}</button>
-			</li>
-		);
-	});
+	// function jumpTo(nextMove) {
+	// 	setCurrentMove(nextMove);
+	// 	setXIsNext(nextMove % 2 === 0);
+	// }
+	// const moves = history.map((squares, move) => {
+	// 	let description;
+	// 	if (move > 0) {
+	// 		description = 'Ir al movimiento #' + move;
+	// 	} else {
+	// 		description = 'Ir al inicio del juego';
+	// 	}
+	// 	return (
+	// 		<li key={move}>
+	// 			<button onClick={() => jumpTo(move)}>{description}</button>
+	// 		</li>
+	// 	);
+	// });
 	const reset = () => {
 		setRefresh(true);
 		setAppear(false);
@@ -78,12 +78,16 @@ export default function App() {
 			}, 400);
 		}, 400);
 	};
-
 	const playButton = () => {
 		setPlay(true);
 		setTimeout(() => {
 			setPlay('end');
 		}, 500);
+	};
+	const draw = () => {
+		if (currentMove === 9 && !calculateWinner(squares)) {
+			return true;
+		}
 	};
 
 	return (
@@ -141,6 +145,18 @@ export default function App() {
 							</div>
 						</>
 					) : null}
+
+					{draw() ? (
+						<div
+							className={`refresh ${
+								refresh ? 'rotate' : 'refresh'
+							} border-blue-600`}
+							onClick={reset}
+						>
+							<AiOutlineReload></AiOutlineReload>
+						</div>
+					) : null}
+
 					{/* <ol>{moves}</ol> */}
 				</div>
 			)}
