@@ -46,18 +46,21 @@
 		opacity: 0%;
 	}
 }
-
 @keyframes fade {
 	50% {
 		opacity: 100%;
 	}
+	99% {
+		display: initial;
+	}
 	100% {
 		opacity: 0%;
+		display: none;
 	}
 }
 
 .fade {
-	animation: fade 0.4s ease-in-out;
+	animation: fade 0.4s ease-in-out forwards;
 }
 
 @keyframes appear {

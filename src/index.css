@@ -6,3 +6,8 @@
 * {
 	font-family: 'Inter', sans-serif;
 }
+#root {
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
+	max-height: 100vh !important;
+}

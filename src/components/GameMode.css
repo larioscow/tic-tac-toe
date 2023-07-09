@@ -1,0 +1,89 @@
+@keyframes bounceIn {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+	60% {
+		transform: scale(1.15);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+@keyframes slideToTop {
+	0% {
+		transform: translateY(0%);
+	}
+	30% {
+		opacity: 100%;
+	}
+	99% {
+		display: initial;
+	}
+	100% {
+		transform: translateY(-60vh);
+		opacity: 0%;
+		display: none;
+	}
+}
+@keyframes slideToLeft {
+	0% {
+		transform: translateX(0%);
+		opacity: 100%;
+	}
+	30% {
+		opacity: 100%;
+	}
+	99% {
+		display: initial;
+	}
+	100% {
+		transform: translateX(-60vw);
+		opacity: 0%;
+		display: none;
+	}
+}
+@keyframes slideToRight {
+	0% {
+		transform: translateX(0%);
+		opacity: 100%;
+	}
+	30% {
+		opacity: 100%;
+	}
+	99% {
+		display: initial;
+	}
+	100% {
+		transform: translateX(60vw);
+		opacity: 0%;
+		display: none;
+	}
+}
+
+.mode-tittle {
+	animation: bounceIn 0.3s ease-in-out;
+}
+
+.solo {
+	opacity: 0;
+	animation: bounceIn 0.3s ease-in-out forwards;
+	animation-delay: 0.1s;
+}
+.opt2 {
+	opacity: 0;
+	animation: bounceIn 0.3s ease-in-out forwards;
+	animation-delay: 0.2s;
+}
+
+.hideText {
+	animation: slideToTop 0.4s ease-in-out forwards;
+}
+.hideSolo {
+	animation: slideToLeft 0.4s ease-in-out forwards;
+}
+.hideAi {
+	animation: slideToRight 0.4s ease-in-out forwards;
+}

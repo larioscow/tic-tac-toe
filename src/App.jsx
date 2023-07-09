@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { LoadPage } from './components/LoadPage';
 import { WinCeleb } from './components/WinCeleb';
 import { AiOutlineReload } from 'react-icons/ai';
+import { GameMode } from './components/GameMode';
 
 export default function App() {
 	const [squares, setSquares] = useState(Array(9).fill(null));
@@ -14,6 +15,7 @@ export default function App() {
 	const [refresh, setRefresh] = useState(false);
 	const [appear, setAppear] = useState(true);
 	const [winnerSquares, setWinnerSquares] = useState([null, null, null]);
+	const [gameMode, setGameMode] = useState('');
 	const currentSquares = history[currentMove];
 
 	const [play, setPlay] = useState(false);
@@ -84,7 +86,7 @@ export default function App() {
 		setPlay(true);
 		setTimeout(() => {
 			setPlay('end');
-		}, 500);
+		}, 300);
 	};
 	const draw = () => {
 		if (currentMove === 9 && !calculateWinner(squares)) {
@@ -109,29 +111,39 @@ export default function App() {
 			{play !== 'end' ? (
 				<LoadPage onPlay={playButton} play={play}></LoadPage>
 			) : (
-				<div
-					className={`${play ? 'grid' : 'hidden'} grid-rows-2 display h-screen`}
-				>
-					<span
-						className={`block absolute top-10 w-screen text-5xl text-center font-bold ${
-							xIsNext ? 'text-red-500' : 'text-emerald-500'
-						} ${refresh ? 'fade' : null} ${appear ? 'appear' : null}`}
-					>
-						{!calculateWinner(squares) ? (xIsNext ? 'X' : 'O') : null}
-					</span>
+				<GameMode gamemode={gameMode} setGameMode={setGameMode} />
+			)}
 
-					<div className={`${appear ? 'appear' : null}`}>
-						<Board
-							size={3}
-							squares={currentSquares}
-							setSquares={setSquares}
-							isXNext={[xIsNext, setXIsNext]}
-							calculateWinner={calculateWinner}
-							onPlay={handlePlay}
-							fade={refresh}
-							winnerSquares={winnerSquares}
-							setWinnerSquares={setWinnerSquares}
-						></Board>
+			{gameMode ? (
+				<div
+					className={`
+				${gameMode ? 'grid' : 'hidden'} 
+				grid-rows-2 display h-screen`}
+				>
+					<div className={`${gameMode === 'solo' ? 'hidden' : null}`}>
+						<span
+							className={`
+						block absolute top-10 w-screen text-5xl text-center font-bold 
+						${xIsNext ? 'text-red-500' : 'text-emerald-500'} 
+						${refresh ? 'fade' : null} 
+						${appear ? 'appear' : null}`}
+						>
+							{!calculateWinner(squares) ? (xIsNext ? 'X' : 'O') : null}
+						</span>
+
+						<div className={`${appear ? 'appear' : null}`}>
+							<Board
+								size={3}
+								squares={currentSquares}
+								setSquares={setSquares}
+								isXNext={[xIsNext, setXIsNext]}
+								calculateWinner={calculateWinner}
+								onPlay={handlePlay}
+								fade={refresh}
+								winnerSquares={winnerSquares}
+								setWinnerSquares={setWinnerSquares}
+							></Board>
+						</div>
 					</div>
 
 					{calculateWinner(squares) ? (
@@ -140,9 +152,9 @@ export default function App() {
 								<WinCeleb></WinCeleb>
 							</div>
 							<div
-								className={`refresh ${
-									refresh ? 'rotate' : 'refresh'
-								} border-blue-600`}
+								className={`refresh 
+								${refresh ? 'rotate' : 'refresh'} 
+								border-blue-600`}
 								onClick={reset}
 							>
 								<AiOutlineReload></AiOutlineReload>
@@ -163,7 +175,7 @@ export default function App() {
 
 					{/* <ol>{moves}</ol> */}
 				</div>
-			)}
+			) : null}
 		</>
 	);
 }
