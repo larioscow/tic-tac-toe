@@ -1,15 +1,15 @@
 import { BsFillPlayFill } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './LoadPage.css';
 
 export const LoadPage = ({ onPlay, play }) => {
 	const [initial, setInitial] = useState(true);
 
-	const removeAnimation = () => {
+	useEffect(() => {
 		setTimeout(() => {
 			setInitial(false);
-		}, 400);
-	};
+		}, 500);
+	}, []);
 
 	return (
 		<div className={`grid w-full h-screen`}>
@@ -30,10 +30,7 @@ export const LoadPage = ({ onPlay, play }) => {
 					onClick={onPlay}
 				>
 					<span className='pr-1'>Play</span>
-					<BsFillPlayFill
-						className='scale-125 '
-						onLoad={() => removeAnimation()}
-					/>
+					<BsFillPlayFill className='scale-125 ' />
 				</button>
 			</div>
 		</div>
