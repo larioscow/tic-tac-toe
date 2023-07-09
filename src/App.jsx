@@ -3,19 +3,19 @@ import 'normalize.css';
 import { Board } from './components/Board';
 import { useState } from 'react';
 import { LoadPage } from './components/LoadPage';
+import { WinCeleb } from './components/WinCeleb';
+import { AiOutlineReload } from 'react-icons/ai';
 
 export default function App() {
 	const [squares, setSquares] = useState(Array(9).fill(null));
 	const [xIsNext, setXIsNext] = useState(true);
 	const [history, setHistory] = useState([Array(9).fill(null)]);
 	const [currentMove, setCurrentMove] = useState(0);
+	const [refresh, setRefresh] = useState(false);
+	const [appear, setAppear] = useState(true);
 	const currentSquares = history[currentMove];
 
 	const [play, setPlay] = useState(false);
-
-	// useEffect(() => {
-	// 	setSquares([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-	// }, []);
 
 	function calculateWinner(squares) {
 		const lines = [
@@ -63,6 +63,21 @@ export default function App() {
 			</li>
 		);
 	});
+	const reset = () => {
+		setRefresh(true);
+		setAppear(false);
+		setTimeout(() => {
+			setSquares(Array(9).fill(null));
+			setHistory([Array(9).fill(null)]);
+			setCurrentMove(0);
+			setXIsNext(true);
+			setRefresh(false);
+			setAppear(true);
+			setTimeout(() => {
+				setAppear(false);
+			}, 400);
+		}, 400);
+	};
 
 	const playButton = () => {
 		setPlay(true);
@@ -73,7 +88,7 @@ export default function App() {
 
 	return (
 		<>
-			{/* <div className='lines w-10'>
+			{/* <div className='lines absolute w-screen'>
 				<div className='vline bg-black w-74 h-2 m-1'></div>
 				<div className='vline bg-black w-74 h-2 m-1'></div>
 				<div className='hline bg-black w-74 h-2 m-1'></div>
@@ -89,26 +104,40 @@ export default function App() {
 					<span
 						className={`block absolute top-10 w-screen text-5xl text-center font-bold ${
 							xIsNext ? 'text-red-500' : 'text-emerald-500'
-						}`}
+						} ${refresh ? 'fade' : null} ${appear ? 'appear' : null}`}
 					>
 						{xIsNext ? 'X' : 'O'}
 					</span>
 
-					<Board
-						size={3}
-						squares={currentSquares}
-						setSquares={setSquares}
-						isXNext={[xIsNext, setXIsNext]}
-						calculateWinner={calculateWinner}
-						onPlay={handlePlay}
-					></Board>
+					<div className={`${appear ? 'appear' : null}`}>
+						<Board
+							size={3}
+							squares={currentSquares}
+							setSquares={setSquares}
+							isXNext={[xIsNext, setXIsNext]}
+							calculateWinner={calculateWinner}
+							onPlay={handlePlay}
+							fade={refresh}
+						></Board>
+					</div>
 
 					{calculateWinner(squares) ? (
-						<span className='block text-center'>
-							{calculateWinner(squares)
-								? 'Winner: ' + calculateWinner(squares)
-								: 'Winner: ' + calculateWinner(squares)}
-						</span>
+						<>
+							{/* <span className='block text-center'>
+								{calculateWinner(squares)
+									? 'Winner: ' + calculateWinner(squares)
+									: 'Winner: ' + calculateWinner(squares)}
+							</span> */}
+							<div className={`${refresh ? 'fade' : null}`}>
+								<WinCeleb></WinCeleb>
+							</div>
+							<div
+								className={`refresh ${refresh ? 'rotate' : 'refresh'}`}
+								onClick={reset}
+							>
+								<AiOutlineReload></AiOutlineReload>
+							</div>
+						</>
 					) : null}
 					{/* <ol>{moves}</ol> */}
 				</div>

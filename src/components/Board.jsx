@@ -8,6 +8,7 @@ export const Board = ({
 	isXNext,
 	calculateWinner,
 	onPlay,
+	fade,
 }) => {
 	const row = Array(size).fill(Array(size).fill(null));
 	let position = 0;
@@ -39,6 +40,7 @@ export const Board = ({
 										value={squares[index]}
 										index={index}
 										handleClick={handleClick}
+										fade={fade}
 									></Button>
 								);
 							})}
