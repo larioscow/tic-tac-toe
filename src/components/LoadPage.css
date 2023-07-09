@@ -54,5 +54,5 @@
 	animation-fill-mode: forwards;
 }
 .initial {
-	animation: bounceIn 0.2s ease-in-out;
+	animation: bounceIn 0.4s;
 }

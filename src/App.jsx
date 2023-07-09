@@ -17,7 +17,6 @@ export default function App() {
 	const [winnerSquares, setWinnerSquares] = useState([null, null, null]);
 	const [gameMode, setGameMode] = useState('');
 	const currentSquares = history[currentMove];
-
 	const [play, setPlay] = useState(false);
 
 	function calculateWinner(squares) {
