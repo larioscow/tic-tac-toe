@@ -9,6 +9,8 @@ export const Board = ({
 	calculateWinner,
 	onPlay,
 	fade,
+	winnerSquares,
+	setWinnerSquares,
 }) => {
 	const row = Array(size).fill(Array(size).fill(null));
 	let position = 0;
@@ -22,6 +24,9 @@ export const Board = ({
 			setXIsNext(!xIsNext);
 			setSquares(nextSquares);
 			onPlay(nextSquares);
+		}
+		if (calculateWinner(nextSquares)) {
+			setWinnerSquares(calculateWinner(nextSquares));
 		}
 	};
 
@@ -41,6 +46,11 @@ export const Board = ({
 										index={index}
 										handleClick={handleClick}
 										fade={fade}
+										winner={
+											index === winnerSquares[0] ||
+											index === winnerSquares[1] ||
+											index === winnerSquares[2]
+										}
 									></Button>
 								);
 							})}

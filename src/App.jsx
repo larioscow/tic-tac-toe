@@ -13,6 +13,7 @@ export default function App() {
 	const [currentMove, setCurrentMove] = useState(0);
 	const [refresh, setRefresh] = useState(false);
 	const [appear, setAppear] = useState(true);
+	const [winnerSquares, setWinnerSquares] = useState([null, null, null]);
 	const currentSquares = history[currentMove];
 
 	const [play, setPlay] = useState(false);
@@ -35,7 +36,7 @@ export default function App() {
 				squares[a] === squares[b] &&
 				squares[a] === squares[c]
 			) {
-				return squares[a];
+				return [a, b, c];
 			}
 		}
 		return null;
@@ -73,6 +74,7 @@ export default function App() {
 			setXIsNext(true);
 			setRefresh(false);
 			setAppear(true);
+			setWinnerSquares([null, null, null]);
 			setTimeout(() => {
 				setAppear(false);
 			}, 400);
@@ -89,6 +91,11 @@ export default function App() {
 			return true;
 		}
 	};
+	// const displayWinner = () => {
+	// 	if (calculateWinner(squares)) {
+	// 		setWinnerSquares(calculateWinner(squares));
+	// 	}
+	// };
 
 	return (
 		<>
@@ -110,7 +117,7 @@ export default function App() {
 							xIsNext ? 'text-red-500' : 'text-emerald-500'
 						} ${refresh ? 'fade' : null} ${appear ? 'appear' : null}`}
 					>
-						{xIsNext ? 'X' : 'O'}
+						{!calculateWinner(squares) ? (xIsNext ? 'X' : 'O') : null}
 					</span>
 
 					<div className={`${appear ? 'appear' : null}`}>
@@ -122,16 +129,13 @@ export default function App() {
 							calculateWinner={calculateWinner}
 							onPlay={handlePlay}
 							fade={refresh}
+							winnerSquares={winnerSquares}
+							setWinnerSquares={setWinnerSquares}
 						></Board>
 					</div>
 
 					{calculateWinner(squares) ? (
 						<>
-							{/* <span className='block text-center'>
-								{calculateWinner(squares)
-									? 'Winner: ' + calculateWinner(squares)
-									: 'Winner: ' + calculateWinner(squares)}
-							</span> */}
 							<div className={`${refresh ? 'fade' : null}`}>
 								<WinCeleb></WinCeleb>
 							</div>
