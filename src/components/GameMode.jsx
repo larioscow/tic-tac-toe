@@ -10,16 +10,16 @@ export const GameMode = ({ gamemode, setGameMode }) => {
 		<div
 			className={`${
 				gamemode === 'end' ? 'hidden' : null
-			} grid w-full h-screen grid-rows-4 place-items-center`}
+			} grid w-full h-screen sm:grid-rows-4  grid-rows-5 place-items-center`}
 		>
 			<h1
 				className={`
       ${gamemode ? 'hideText' : null}
-      mode-tittle text-9xl text-center row-start-1 row-span-2 md:row-start-2 md:row-span-1`}
+      mode-tittle sm:text-9xl text-8xl text-center row-start-1 row-span-2 md:row-start-2 md:row-span-1`}
 			>
 				GAME MODE
 			</h1>
-			<div className='flex md:gap-40 gap-5 flex-col md:flex-row m-auto place-items-center row-start-3 '>
+			<div className='flex md:gap-40 gap-5 flex-col sm:flex-row m-auto place-items-center row-start-3'>
 				<div className='scale-wrap hover:scale-110 duration-75'>
 					<div
 						className={`
